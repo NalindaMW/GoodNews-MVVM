@@ -22,7 +22,7 @@ extension ArticleListViewModel {
         return articles.count
     }
     
-    func articleAtIndex(_ index: Int) -> ArticleViewModel {
+    func articleVMAtIndex(_ index: Int) -> ArticleViewModel {
         let article = articles[index]
         return ArticleViewModel(article)
     }

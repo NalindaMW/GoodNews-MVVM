@@ -34,17 +34,24 @@ class NewsListViewController: UIViewController {
 }
 
 extension NewsListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return articleListVM?.numberOfSections ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleListVM?.articles.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell",
+                                                       for: indexPath) as? ArticleCell else {
+            fatalError("ArticleCell not found")
+        }
         
-        let article = articleListVM?.articleAtIndex(indexPath.row)
+        let articleVM = articleListVM?.articleVMAtIndex(indexPath.row)
         
-        cell.titleLabel.text = article?.title
-        cell.descriptionLabel.text = article?.description
+        cell.titleLabel.text = articleVM?.title
+        cell.descriptionLabel.text = articleVM?.description
         return cell
     }
     
