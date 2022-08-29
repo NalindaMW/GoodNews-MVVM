@@ -17,6 +17,9 @@ class NewsListViewController: UIViewController {
     
     private func setup() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        Webservice().fetchArticles { _ in
+        }
     }
 }
 
