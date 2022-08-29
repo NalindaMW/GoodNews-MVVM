@@ -24,7 +24,6 @@ struct Webservice {
                 
                 if let safeData = data {
                     if let newsModel = parseJSON(newsData: safeData) {
-                        print("Total results: \(newsModel.totalResults)")
                         completion(newsModel.articles)
                     }
                 }

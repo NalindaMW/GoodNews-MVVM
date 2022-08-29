@@ -33,7 +33,9 @@ class NewsListViewController: UIViewController {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension NewsListViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return articleListVM?.numberOfSections ?? 0
     }
@@ -54,7 +56,5 @@ extension NewsListViewController: UITableViewDataSource {
         cell.descriptionLabel.text = articleVM?.description
         return cell
     }
-    
-    
 }
 
