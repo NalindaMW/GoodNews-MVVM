@@ -74,6 +74,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="GoodNews" id="6PC-FD-x72"/>
+                    <connections>
+                        <outlet property="tableView" destination="naG-Oq-3Or" id="vTL-Ld-fka"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

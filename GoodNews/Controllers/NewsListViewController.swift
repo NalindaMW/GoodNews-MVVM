@@ -9,6 +9,10 @@ import UIKit
 
 class NewsListViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    private var articleListVM: ArticleListViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,19 +22,29 @@ class NewsListViewController: UIViewController {
     private func setup() {
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        Webservice().fetchArticles { _ in
+        Webservice().fetchArticles { articles in
+            if let safeArticles = articles {
+                self.articleListVM = ArticleListViewModel(articles: safeArticles)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
 }
 
 extension NewsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return articleListVM?.articles.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
         
+        let article = articleListVM?.articleAtIndex(indexPath.row)
+        
+        cell.titleLabel.text = article?.title
+        cell.descriptionLabel.text = article?.description
         return cell
     }
     
